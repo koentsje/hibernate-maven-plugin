@@ -170,14 +170,14 @@ public class EnhanceMojo extends AbstractMojo {
     }
 
     private void discoverTypesForClass(File classFile) {
-        getLog().debug("Trying to discover types for classes in file: " + classFile);
+        getLog().debug(TRYING_TO_DISCOVER_TYPES_FOR_CLASS_FILE.formatted(classFile));
         try {
             enhancer.discoverTypes(
                 determineClassName(classFile), 
                 Files.readAllBytes( classFile.toPath()));
-            getLog().info("Succesfully discovered types for classes in file: " + classFile);
+            getLog().info(SUCCESFULLY_DISCOVERED_TYPES_FOR_CLASS_FILE.formatted(classFile));
         } catch (IOException e) {
-            getLog().error("Unable to discover types for classes in file: " + classFile, e);
+            getLog().error(UNABLE_TO_DISCOVER_TYPES_FOR_CLASS_FILE.formatted(classFile), e);
         }
     }
 
@@ -201,7 +201,7 @@ public class EnhanceMojo extends AbstractMojo {
                 getLog().debug(SETTING_LASTMODIFIED_FAILED_FOR_CLASS_FILE.formatted(classFile));
             }
         }
-        getLog().debug("Ending class enhancement") ;
+        getLog().debug(ENDING_CLASS_ENHANCEMENT) ;
      }
 
     private void enhanceClass(File classFile) {
@@ -263,6 +263,7 @@ public class EnhanceMojo extends AbstractMojo {
    static final String SUCCESFULLY_CLEARED_FILE = "Succesfully cleared the contents of file: %s";
    static final String SUCCESFULLY_ENHANCED_CLASS_FILE = "Succesfully enhanced class file: %s";
    static final String SKIPPING_FILE = "Skipping file: %s";
+   static final String SUCCESFULLY_DISCOVERED_TYPES_FOR_CLASS_FILE = "Succesfully discovered types for classes in file: %s";
    
    // warning messages
    static final String PROBLEM_CLEARING_FILE = "Problem clearing file for writing out enhancements [ %s ]";
@@ -273,6 +274,7 @@ public class EnhanceMojo extends AbstractMojo {
    static final String ERROR_WRITING_BYTES_TO_FILE = "Error writing bytes to file : %s";
    static final String ERROR_OPENING_FILE_FOR_WRITING = "Error opening file for writing : %s";
    static final String ERROR_WHILE_ENHANCING_CLASS_FILE = "An exception occurred while trying to class file: %s";
+   static final String UNABLE_TO_DISCOVER_TYPES_FOR_CLASS_FILE = "Unable to discover types for classes in file: %s";
    
    // debug messages
    static final String TRYING_TO_CLEAR_FILE = "Trying to clear the contents of file: %s";
@@ -283,5 +285,6 @@ public class EnhanceMojo extends AbstractMojo {
    static final String STARTING_CLASS_ENHANCEMENT = "Starting class enhancement";
    static final String SETTING_LASTMODIFIED_FAILED_FOR_CLASS_FILE = "Setting lastModified failed for class file: %s";
    static final String ENDING_CLASS_ENHANCEMENT = "Ending class enhancement";
+   static final String TRYING_TO_DISCOVER_TYPES_FOR_CLASS_FILE = "Trying to discover types for classes in file: %s";
 
 }
