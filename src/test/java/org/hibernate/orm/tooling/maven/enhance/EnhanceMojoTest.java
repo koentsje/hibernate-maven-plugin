@@ -108,6 +108,15 @@ public class EnhanceMojoTest {
         assertTrue(sourceSet.contains(barClassFile));
         assertFalse(sourceSet.contains(fooTxtFile));
         assertEquals(1, sourceSet.size());
+        // verify the log messages
+        assertEquals(7, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.STARTING_ASSEMBLY_OF_SOURCESET));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.PROCESSING_FILE_SET));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.USING_BASE_DIRECTORY.formatted(classesDirectory)));
+        assertTrue(logMessages.contains(INFO + EnhanceMojo.ADDED_FILE_TO_SOURCE_SET.formatted(barClassFile)));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.SKIPPING_NON_CLASS_FILE.formatted(fooTxtFile)));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.FILESET_PROCESSED_SUCCESFULLY));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.ENDING_ASSEMBLY_OF_SOURCESET));
     }
 
     @Test

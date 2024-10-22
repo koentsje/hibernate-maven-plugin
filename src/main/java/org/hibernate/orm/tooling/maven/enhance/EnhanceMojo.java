@@ -103,14 +103,14 @@ public class EnhanceMojo extends AbstractMojo {
     }
 
     private void assembleSourceSet() {
-        getLog().debug("Starting assembly of the source set");
+        getLog().debug(STARTING_ASSEMBLY_OF_SOURCESET);
         for (FileSet fileSet : fileSets) {
             addFileSetToSourceSet(fileSet);
         }
-        getLog().debug("Ending the assembly of the source set");
+        getLog().debug(ENDING_ASSEMBLY_OF_SOURCESET);
     }
 
-    private void addFileSetToSourceSet(FileSet fileSet) {
+   private void addFileSetToSourceSet(FileSet fileSet) {
         getLog().debug(PROCESSING_FILE_SET);
         String directory = fileSet.getDirectory();
         FileSetManager fileSetManager = new FileSetManager();
@@ -297,5 +297,7 @@ public class EnhanceMojo extends AbstractMojo {
     static final String USING_BASE_DIRECTORY = "Using base directory: %s";
     static final String SKIPPING_NON_CLASS_FILE = "Skipping non '.class' file: %s";
     static final String FILESET_PROCESSED_SUCCESFULLY = "FileSet was processed succesfully";
+    static final String STARTING_ASSEMBLY_OF_SOURCESET = "Starting assembly of the source set";
+    static final String ENDING_ASSEMBLY_OF_SOURCESET = "Ending the assembly of the source set";
     
 }
