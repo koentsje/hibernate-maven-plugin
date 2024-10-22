@@ -78,13 +78,13 @@ public class EnhanceMojo extends AbstractMojo {
     private boolean enableExtendedEnhancement;
 
     public void execute() {
-        getLog().debug("Starting execution of enhance mojo");
+        getLog().debug(STARTING_EXECUTION_OF_ENHANCE_MOJO);
         processParameters();
         assembleSourceSet();
         createEnhancer();
         discoverTypes();
         performEnhancement();
-        getLog().debug("Ending execution of enhance mojo");
+        getLog().debug(ENDING_EXECUTION_OF_ENHANCE_MOJO);
     }
 
     private void processParameters() {
@@ -302,5 +302,7 @@ public class EnhanceMojo extends AbstractMojo {
     static final String STARTING_ASSEMBLY_OF_SOURCESET = "Starting assembly of the source set";
     static final String ENDING_ASSEMBLY_OF_SOURCESET = "Ending the assembly of the source set";
     static final String ADDED_DEFAULT_FILESET_WITH_BASE_DIRECTORY = "Addded a default FileSet with base directory: %s";
+    static final String STARTING_EXECUTION_OF_ENHANCE_MOJO = "Starting execution of enhance mojo";
+    static final String ENDING_EXECUTION_OF_ENHANCE_MOJO = "Ending execution of enhance mojo";
     
 }

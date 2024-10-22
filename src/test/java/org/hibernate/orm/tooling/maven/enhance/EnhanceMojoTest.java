@@ -532,10 +532,6 @@ public class EnhanceMojoTest {
     void testExecute() throws Exception {
     	Method executeMethod = EnhanceMojo.class.getDeclaredMethod("execute", new Class[] {});
     	executeMethod.setAccessible(true);
-        String lazyInitializationDeprecatedWarning = 
-            "[WARNING] The 'enableLazyInitialization' configuration is deprecated and will be removed. Set the value to 'true' to get rid of this warning";
-        String dirtyTrackingDeprecatedWarning = 
-            "[WARNING] The 'enableDirtyTracking' configuration is deprecated and will be removed. Set the value to 'true' to get rid of this warning";
     	final String barSource = 
     		"package org.foo;" +
     	    "import jakarta.persistence.Entity;" + 
@@ -573,8 +569,6 @@ public class EnhanceMojoTest {
         sourceSetField.set(enhanceMojo, sourceSet);
         assertTrue(logMessages.isEmpty());
         executeMethod.invoke(enhanceMojo);
-        assertTrue(logMessages.contains(lazyInitializationDeprecatedWarning));
-        assertTrue(logMessages.contains(dirtyTrackingDeprecatedWarning));
         assertNotEquals(barBytesString, new String(Files.readAllBytes(barClassFile.toPath())));
         assertEquals(fooBytesString, new String(Files.readAllBytes(fooClassFile.toPath())));
         URLClassLoader classLoader = new URLClassLoader(
@@ -592,6 +586,14 @@ public class EnhanceMojoTest {
         	assertEquals("org.foo.Foo.$$_hibernate_getEntityInstance()", e.getMessage());
         }
         classLoader.close();
+        // verify in the log messages at least if all the needed methods have been invoked
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.STARTING_EXECUTION_OF_ENHANCE_MOJO));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.ADDED_DEFAULT_FILESET_WITH_BASE_DIRECTORY.formatted(classesDirectory)));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.STARTING_ASSEMBLY_OF_SOURCESET));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_BYTECODE_ENHANCER));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.STARTING_TYPE_DISCOVERY));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.STARTING_CLASS_ENHANCEMENT));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.ENDING_EXECUTION_OF_ENHANCE_MOJO));
     } 
 
     @Test
