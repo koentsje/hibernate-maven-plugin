@@ -162,11 +162,11 @@ public class EnhanceMojo extends AbstractMojo {
     }
 
     private void discoverTypes() {
-        getLog().debug("Starting type discovery") ;
+        getLog().debug(STARTING_TYPE_DISCOVERY) ;
         for (File classFile : sourceSet) {
             discoverTypesForClass(classFile);
         }
-        getLog().debug("Ending type discovery") ;
+        getLog().debug(ENDING_TYPE_DISCOVERY) ;
     }
 
     private void discoverTypesForClass(File classFile) {
@@ -259,32 +259,34 @@ public class EnhanceMojo extends AbstractMojo {
     return success;
     }
     
-   // info messages
-   static final String SUCCESFULLY_CLEARED_FILE = "Succesfully cleared the contents of file: %s";
-   static final String SUCCESFULLY_ENHANCED_CLASS_FILE = "Succesfully enhanced class file: %s";
-   static final String SKIPPING_FILE = "Skipping file: %s";
-   static final String SUCCESFULLY_DISCOVERED_TYPES_FOR_CLASS_FILE = "Succesfully discovered types for classes in file: %s";
-   
-   // warning messages
-   static final String PROBLEM_CLEARING_FILE = "Problem clearing file for writing out enhancements [ %s ]";
-   
-   // error messages
-   static final String UNABLE_TO_CREATE_FILE = "Unable to create file: %s"; 
-   static final String UNABLE_TO_DELETE_FILE = "Unable to delete file: %s"; 
-   static final String ERROR_WRITING_BYTES_TO_FILE = "Error writing bytes to file : %s";
-   static final String ERROR_OPENING_FILE_FOR_WRITING = "Error opening file for writing : %s";
-   static final String ERROR_WHILE_ENHANCING_CLASS_FILE = "An exception occurred while trying to class file: %s";
-   static final String UNABLE_TO_DISCOVER_TYPES_FOR_CLASS_FILE = "Unable to discover types for classes in file: %s";
-   
-   // debug messages
-   static final String TRYING_TO_CLEAR_FILE = "Trying to clear the contents of file: %s";
-   static final String AMOUNT_BYTES_WRITTEN_TO_FILE = "%s bytes were succesfully written to file: %s";
-   static final String WRITING_BYTE_CODE_TO_FILE = "Writing byte code to file: %s";
-   static final String DETERMINE_CLASS_NAME_FOR_FILE = "Determining class name for file: %s";
-   static final String TRYING_TO_ENHANCE_CLASS_FILE = "Trying to enhance class file: %s";
-   static final String STARTING_CLASS_ENHANCEMENT = "Starting class enhancement";
-   static final String SETTING_LASTMODIFIED_FAILED_FOR_CLASS_FILE = "Setting lastModified failed for class file: %s";
-   static final String ENDING_CLASS_ENHANCEMENT = "Ending class enhancement";
-   static final String TRYING_TO_DISCOVER_TYPES_FOR_CLASS_FILE = "Trying to discover types for classes in file: %s";
+    // info messages
+    static final String SUCCESFULLY_CLEARED_FILE = "Succesfully cleared the contents of file: %s";
+    static final String SUCCESFULLY_ENHANCED_CLASS_FILE = "Succesfully enhanced class file: %s";
+    static final String SKIPPING_FILE = "Skipping file: %s";
+    static final String SUCCESFULLY_DISCOVERED_TYPES_FOR_CLASS_FILE = "Succesfully discovered types for classes in file: %s";
+    
+    // warning messages
+    static final String PROBLEM_CLEARING_FILE = "Problem clearing file for writing out enhancements [ %s ]";
+    
+    // error messages
+    static final String UNABLE_TO_CREATE_FILE = "Unable to create file: %s"; 
+    static final String UNABLE_TO_DELETE_FILE = "Unable to delete file: %s"; 
+    static final String ERROR_WRITING_BYTES_TO_FILE = "Error writing bytes to file : %s";
+    static final String ERROR_OPENING_FILE_FOR_WRITING = "Error opening file for writing : %s";
+    static final String ERROR_WHILE_ENHANCING_CLASS_FILE = "An exception occurred while trying to class file: %s";
+    static final String UNABLE_TO_DISCOVER_TYPES_FOR_CLASS_FILE = "Unable to discover types for classes in file: %s";
+    
+    // debug messages
+    static final String TRYING_TO_CLEAR_FILE = "Trying to clear the contents of file: %s";
+    static final String AMOUNT_BYTES_WRITTEN_TO_FILE = "%s bytes were succesfully written to file: %s";
+    static final String WRITING_BYTE_CODE_TO_FILE = "Writing byte code to file: %s";
+    static final String DETERMINE_CLASS_NAME_FOR_FILE = "Determining class name for file: %s";
+    static final String TRYING_TO_ENHANCE_CLASS_FILE = "Trying to enhance class file: %s";
+    static final String STARTING_CLASS_ENHANCEMENT = "Starting class enhancement";
+    static final String SETTING_LASTMODIFIED_FAILED_FOR_CLASS_FILE = "Setting lastModified failed for class file: %s";
+    static final String ENDING_CLASS_ENHANCEMENT = "Ending class enhancement";
+    static final String TRYING_TO_DISCOVER_TYPES_FOR_CLASS_FILE = "Trying to discover types for classes in file: %s";
+    static final String STARTING_TYPE_DISCOVERY = "Starting type discovery";
+    static final String ENDING_TYPE_DISCOVERY = "Ending type discovery";
 
 }

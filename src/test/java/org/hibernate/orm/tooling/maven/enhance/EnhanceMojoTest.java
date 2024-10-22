@@ -294,11 +294,23 @@ public class EnhanceMojoTest {
         assertFalse(hasRun.contains(true));
         discoverTypesMethod.invoke(enhanceMojo);
         assertFalse(hasRun.contains(true));
+        // verify the log messages
+        assertEquals(2, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.STARTING_TYPE_DISCOVERY));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.ENDING_TYPE_DISCOVERY));
+        logMessages.clear();
         List<File> sourceSet = new ArrayList<File>();
         sourceSet.add(barClassFile);
         sourceSetField.set(enhanceMojo, sourceSet);
         discoverTypesMethod.invoke(enhanceMojo);
         assertTrue(hasRun.contains(true));
+        // verify the log messages
+        assertEquals(5, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.STARTING_TYPE_DISCOVERY));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.TRYING_TO_DISCOVER_TYPES_FOR_CLASS_FILE.formatted(barClassFile)));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.DETERMINE_CLASS_NAME_FOR_FILE.formatted(barClassFile)));
+        assertTrue(logMessages.contains(INFO + EnhanceMojo.SUCCESFULLY_DISCOVERED_TYPES_FOR_CLASS_FILE.formatted(barClassFile)));        
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.ENDING_TYPE_DISCOVERY));        
     }
 
     @Test
