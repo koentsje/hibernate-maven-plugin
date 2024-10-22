@@ -146,6 +146,10 @@ public class EnhanceMojoTest {
         URL fooResource = classLoader.getResource("bar/Foo.txt");
         assertNotNull(fooResource);
         assertEquals(fooTxtFile.toURI().toURL(), fooResource);
+        // verify log messages
+        // verify log messages
+        assertEquals(1, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_URL_CLASSLOADER_FOR_FOLDER.formatted(classesDirectory)));
     }
 
     @Test
@@ -160,6 +164,11 @@ public class EnhanceMojoTest {
         assertFalse(enhancementContext.hasLazyLoadableAttributes(null));
         assertFalse(enhancementContext.isLazyLoadable(null));
         assertFalse(enhancementContext.doExtendedEnhancement(null));
+        // verify log messages
+        assertEquals(2, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_ENHANCEMENT_CONTEXT));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_URL_CLASSLOADER_FOR_FOLDER.formatted(classesDirectory)));
+        logMessages.clear();
         Field enableAssociationManagementField = EnhanceMojo.class.getDeclaredField("enableAssociationManagement");
         enableAssociationManagementField.setAccessible(true);
         enableAssociationManagementField.set(enhanceMojo, Boolean.TRUE);
@@ -170,6 +179,11 @@ public class EnhanceMojoTest {
         assertFalse(enhancementContext.hasLazyLoadableAttributes(null));
         assertFalse(enhancementContext.isLazyLoadable(null));
         assertFalse(enhancementContext.doExtendedEnhancement(null));
+        // verify log messages
+        assertEquals(2, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_ENHANCEMENT_CONTEXT));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_URL_CLASSLOADER_FOR_FOLDER.formatted(classesDirectory)));
+        logMessages.clear();
         Field enableDirtyTrackingField = EnhanceMojo.class.getDeclaredField("enableDirtyTracking");
         enableDirtyTrackingField.setAccessible(true);
         enableDirtyTrackingField.set(enhanceMojo, Boolean.TRUE);
@@ -180,6 +194,11 @@ public class EnhanceMojoTest {
         assertFalse(enhancementContext.hasLazyLoadableAttributes(null));
         assertFalse(enhancementContext.isLazyLoadable(null));
         assertFalse(enhancementContext.doExtendedEnhancement(null));
+        // verify log messages
+        assertEquals(2, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_ENHANCEMENT_CONTEXT));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_URL_CLASSLOADER_FOR_FOLDER.formatted(classesDirectory)));
+        logMessages.clear();
         Field enableLazyInitializationField = EnhanceMojo.class.getDeclaredField("enableLazyInitialization");
         enableLazyInitializationField.setAccessible(true);
         enableLazyInitializationField.set(enhanceMojo, Boolean.TRUE);
@@ -190,6 +209,11 @@ public class EnhanceMojoTest {
         assertTrue(enhancementContext.hasLazyLoadableAttributes(null));
         assertTrue(enhancementContext.isLazyLoadable(null));
         assertFalse(enhancementContext.doExtendedEnhancement(null));
+        // verify log messages
+        assertEquals(2, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_ENHANCEMENT_CONTEXT));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_URL_CLASSLOADER_FOR_FOLDER.formatted(classesDirectory)));
+        logMessages.clear();
         Field enableExtendedEnhancementField = EnhanceMojo.class.getDeclaredField("enableExtendedEnhancement");
         enableExtendedEnhancementField.setAccessible(true);
         enableExtendedEnhancementField.set(enhanceMojo, Boolean.TRUE);
@@ -200,6 +224,11 @@ public class EnhanceMojoTest {
         assertTrue(enhancementContext.hasLazyLoadableAttributes(null));
         assertTrue(enhancementContext.isLazyLoadable(null));
         assertTrue(enhancementContext.doExtendedEnhancement(null));
+        // verify log messages
+        assertEquals(2, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_ENHANCEMENT_CONTEXT));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_URL_CLASSLOADER_FOR_FOLDER.formatted(classesDirectory)));
+        logMessages.clear();
     }
 
     @Test
@@ -225,6 +254,11 @@ public class EnhanceMojoTest {
         URL fooResource = classLoader.getResource("bar/Foo.txt");
         assertNotNull(fooResource);
         assertEquals(fooTxtFile.toURI().toURL(), fooResource);
+        // verify log messages
+        assertEquals(3, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_BYTECODE_ENHANCER));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_ENHANCEMENT_CONTEXT));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.CREATE_URL_CLASSLOADER_FOR_FOLDER.formatted(classesDirectory)));
     }
 
     @Test

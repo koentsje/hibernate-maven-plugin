@@ -132,12 +132,12 @@ public class EnhanceMojo extends AbstractMojo {
     }
 
     private ClassLoader createClassLoader() {
-        getLog().debug("Creating URL ClassLoader for folder: " + classesDirectory) ;
+        getLog().debug(CREATE_URL_CLASSLOADER_FOR_FOLDER.formatted(classesDirectory)) ;
 		List<URL> urls = new ArrayList<>();
         try {
             urls.add(classesDirectory.toURI().toURL());
         } catch (MalformedURLException e) {
-            getLog().error("An unexpected error occurred while constructing the classloader", e);
+            getLog().error(UNEXPECTED_ERROR_WHILE_CONSTRUCTING_CLASSLOADER, e);
         }
 		return new URLClassLoader(
             urls.toArray(new URL[urls.size()]), 
@@ -145,7 +145,7 @@ public class EnhanceMojo extends AbstractMojo {
 	}
 
     private EnhancementContext createEnhancementContext() {
-        getLog().debug("Creating enhancement context") ;
+        getLog().debug(CREATE_ENHANCEMENT_CONTEXT) ;
         return new EnhancementContext(
             createClassLoader(), 
             enableAssociationManagement, 
@@ -155,7 +155,7 @@ public class EnhanceMojo extends AbstractMojo {
     }
 
     private void createEnhancer() {
-        getLog().debug("Creating bytecode enhancer") ;
+        getLog().debug(CREATE_BYTECODE_ENHANCER) ;
         enhancer = BytecodeProviderInitiator
             .buildDefaultBytecodeProvider()
             .getEnhancer(createEnhancementContext());
@@ -275,6 +275,7 @@ public class EnhanceMojo extends AbstractMojo {
     static final String ERROR_OPENING_FILE_FOR_WRITING = "Error opening file for writing : %s";
     static final String ERROR_WHILE_ENHANCING_CLASS_FILE = "An exception occurred while trying to class file: %s";
     static final String UNABLE_TO_DISCOVER_TYPES_FOR_CLASS_FILE = "Unable to discover types for classes in file: %s";
+    static final String UNEXPECTED_ERROR_WHILE_CONSTRUCTING_CLASSLOADER = "An unexpected error occurred while constructing the classloader";
     
     // debug messages
     static final String TRYING_TO_CLEAR_FILE = "Trying to clear the contents of file: %s";
@@ -288,5 +289,8 @@ public class EnhanceMojo extends AbstractMojo {
     static final String TRYING_TO_DISCOVER_TYPES_FOR_CLASS_FILE = "Trying to discover types for classes in file: %s";
     static final String STARTING_TYPE_DISCOVERY = "Starting type discovery";
     static final String ENDING_TYPE_DISCOVERY = "Ending type discovery";
+    static final String CREATE_BYTECODE_ENHANCER = "Creating bytecode enhancer";
+    static final String CREATE_ENHANCEMENT_CONTEXT = "Creating enhancement context";
+    static final String CREATE_URL_CLASSLOADER_FOR_FOLDER = "Creating URL ClassLoader for folder: %s";
 
 }
