@@ -89,16 +89,16 @@ public class EnhanceMojo extends AbstractMojo {
 
     private void processParameters() {
         if (!enableLazyInitialization) {
-			getLog().warn( "The 'enableLazyInitialization' configuration is deprecated and will be removed. Set the value to 'true' to get rid of this warning" );
+			getLog().warn(ENABLE_LAZY_INITIALIZATION_DEPRECATED);
 		}
 		if (!enableDirtyTracking) {
-			getLog().warn( "The 'enableDirtyTracking' configuration is deprecated and will be removed. Set the value to 'true' to get rid of this warning" );
+			getLog().warn(ENABLE_DIRTY_TRACKING_DEPRECATED);
 		}
         if (fileSets == null) {
             fileSets = new FileSet[1];
             fileSets[0] = new FileSet();
             fileSets[0].setDirectory(classesDirectory.getAbsolutePath());
-            getLog().debug("Addded a default FileSet with base directory: " + fileSets[0].getDirectory());
+            getLog().debug(ADDED_DEFAULT_FILESET_WITH_BASE_DIRECTORY.formatted(fileSets[0].getDirectory()));
         }
     }
 
@@ -268,6 +268,8 @@ public class EnhanceMojo extends AbstractMojo {
     
     // warning messages
     static final String PROBLEM_CLEARING_FILE = "Problem clearing file for writing out enhancements [ %s ]";
+    static final String ENABLE_LAZY_INITIALIZATION_DEPRECATED = "The 'enableLazyInitialization' configuration is deprecated and will be removed. Set the value to 'true' to get rid of this warning";
+    static final String ENABLE_DIRTY_TRACKING_DEPRECATED = "The 'enableDirtyTracking' configuration is deprecated and will be removed. Set the value to 'true' to get rid of this warning";
     
     // error messages
     static final String UNABLE_TO_CREATE_FILE = "Unable to create file: %s"; 
@@ -299,5 +301,6 @@ public class EnhanceMojo extends AbstractMojo {
     static final String FILESET_PROCESSED_SUCCESFULLY = "FileSet was processed succesfully";
     static final String STARTING_ASSEMBLY_OF_SOURCESET = "Starting assembly of the source set";
     static final String ENDING_ASSEMBLY_OF_SOURCESET = "Ending the assembly of the source set";
+    static final String ADDED_DEFAULT_FILESET_WITH_BASE_DIRECTORY = "Addded a default FileSet with base directory: %s";
     
 }

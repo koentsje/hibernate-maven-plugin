@@ -596,27 +596,21 @@ public class EnhanceMojoTest {
 
     @Test
     void testProcessParameters() throws Exception {
-        String lazyInitializationDeprecatedWarning = 
-            "[WARNING] The 'enableLazyInitialization' configuration is deprecated and will be removed. Set the value to 'true' to get rid of this warning";
-        String dirtyTrackingDeprecatedWarning = 
-            "[WARNING] The 'enableDirtyTracking' configuration is deprecated and will be removed. Set the value to 'true' to get rid of this warning";
-        String defaultFileSetAddedMessage = 
-            "[DEBUG] Addded a default FileSet with base directory: " + classesDirectory.getAbsolutePath();
-        Method verifyParametersMethod = EnhanceMojo.class.getDeclaredMethod(
+        Method processParametersMethod = EnhanceMojo.class.getDeclaredMethod(
             "processParameters", 
             new Class[] {});
-        verifyParametersMethod.setAccessible(true);
+        processParametersMethod.setAccessible(true);
         Field enableLazyInitializationField = EnhanceMojo.class.getDeclaredField("enableLazyInitialization");
         enableLazyInitializationField.setAccessible(true);
         Field enableDirtyTrackingField = EnhanceMojo.class.getDeclaredField("enableDirtyTracking");
         enableDirtyTrackingField.setAccessible(true);
         assertTrue(logMessages.isEmpty());
         assertNull(fileSetsField.get(enhanceMojo));
-        verifyParametersMethod.invoke(enhanceMojo);
+        processParametersMethod.invoke(enhanceMojo);
         assertEquals(3, logMessages.size());
-        assertTrue(logMessages.contains(lazyInitializationDeprecatedWarning));
-        assertTrue(logMessages.contains(dirtyTrackingDeprecatedWarning));
-        assertTrue(logMessages.contains(defaultFileSetAddedMessage));
+        assertTrue(logMessages.contains(WARNING + EnhanceMojo.ENABLE_LAZY_INITIALIZATION_DEPRECATED));
+        assertTrue(logMessages.contains(WARNING + EnhanceMojo.ENABLE_DIRTY_TRACKING_DEPRECATED));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.ADDED_DEFAULT_FILESET_WITH_BASE_DIRECTORY.formatted(classesDirectory)));
         FileSet[] fileSets = (FileSet[])fileSetsField.get(enhanceMojo);
         assertNotNull(fileSets);
         assertEquals(1, fileSets.length);
@@ -626,9 +620,9 @@ public class EnhanceMojoTest {
         assertTrue(logMessages.isEmpty());
         enableLazyInitializationField.set(enhanceMojo, Boolean.TRUE);
         enableDirtyTrackingField.set(enhanceMojo, Boolean.TRUE);
-        verifyParametersMethod.invoke(enhanceMojo);
+        processParametersMethod.invoke(enhanceMojo);
         assertEquals(1, logMessages.size());
-        assertTrue(logMessages.contains(defaultFileSetAddedMessage));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.ADDED_DEFAULT_FILESET_WITH_BASE_DIRECTORY.formatted(classesDirectory)));
     }
 
     private Log createLog() {
