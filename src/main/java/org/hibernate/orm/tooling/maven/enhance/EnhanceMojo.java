@@ -111,24 +111,24 @@ public class EnhanceMojo extends AbstractMojo {
     }
 
     private void addFileSetToSourceSet(FileSet fileSet) {
-        getLog().debug("Processing FileSet");
+        getLog().debug(PROCESSING_FILE_SET);
         String directory = fileSet.getDirectory();
         FileSetManager fileSetManager = new FileSetManager();
         File baseDir = classesDirectory;
         if (directory != null && classesDirectory != null) {
             baseDir = new File(directory);
         } 
-        getLog().debug("Using base directory: " + baseDir);
+        getLog().debug(USING_BASE_DIRECTORY.formatted(baseDir));
         for (String fileName : fileSetManager.getIncludedFiles(fileSet)) {
             File candidateFile = new File(baseDir, fileName); 
             if (fileName.endsWith(".class")) {
                 sourceSet.add(candidateFile);
-                getLog().info("Added file to source set: " + candidateFile);
+                getLog().info(ADDED_FILE_TO_SOURCE_SET.formatted(candidateFile));
             } else {
-                getLog().debug("Skipping non '.class' file: " + candidateFile);
+                getLog().debug(SKIPPING_NON_CLASS_FILE.formatted(candidateFile));
             }
         }
-        getLog().debug("FileSet was processed succesfully");
+        getLog().debug(FILESET_PROCESSED_SUCCESFULLY);
     }
 
     private ClassLoader createClassLoader() {
@@ -264,6 +264,7 @@ public class EnhanceMojo extends AbstractMojo {
     static final String SUCCESFULLY_ENHANCED_CLASS_FILE = "Succesfully enhanced class file: %s";
     static final String SKIPPING_FILE = "Skipping file: %s";
     static final String SUCCESFULLY_DISCOVERED_TYPES_FOR_CLASS_FILE = "Succesfully discovered types for classes in file: %s";
+    static final String ADDED_FILE_TO_SOURCE_SET = "Added file to source set: %s";
     
     // warning messages
     static final String PROBLEM_CLEARING_FILE = "Problem clearing file for writing out enhancements [ %s ]";
@@ -292,5 +293,9 @@ public class EnhanceMojo extends AbstractMojo {
     static final String CREATE_BYTECODE_ENHANCER = "Creating bytecode enhancer";
     static final String CREATE_ENHANCEMENT_CONTEXT = "Creating enhancement context";
     static final String CREATE_URL_CLASSLOADER_FOR_FOLDER = "Creating URL ClassLoader for folder: %s";
-
+    static final String PROCESSING_FILE_SET = "Processing FileSet";
+    static final String USING_BASE_DIRECTORY = "Using base directory: %s";
+    static final String SKIPPING_NON_CLASS_FILE = "Skipping non '.class' file: %s";
+    static final String FILESET_PROCESSED_SUCCESFULLY = "FileSet was processed succesfully";
+    
 }

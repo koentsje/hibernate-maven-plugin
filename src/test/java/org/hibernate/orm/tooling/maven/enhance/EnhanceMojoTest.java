@@ -128,13 +128,15 @@ public class EnhanceMojoTest {
         fileSet.addInclude("**/*.class");
         fileSet.addExclude("**/baz/**");
         addFileSetToSourceSetMethod.invoke(enhanceMojo, fileSet);
-        assertTrue(logMessages.contains("[DEBUG] Processing FileSet"));
-        assertTrue(logMessages.contains("[DEBUG] Using base directory: " + classesDirectory));
-        assertTrue(logMessages.contains("[INFO] Added file to source set: " + barClassFile));
-        assertTrue(logMessages.contains("[INFO] Added file to source set: " + fooClassFile));
-        assertFalse(logMessages.contains("[INFO] Added file to source set: " + bazClassFile));
-        assertTrue(logMessages.contains("[DEBUG] Skipping non '.class' file: " + fooTxtFile));
-        assertTrue(logMessages.contains("[DEBUG] FileSet was processed succesfully"));
+        // verify log messages 
+        assertEquals(6, logMessages.size());
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.PROCESSING_FILE_SET));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.USING_BASE_DIRECTORY.formatted(classesDirectory)));
+        assertTrue(logMessages.contains(INFO + EnhanceMojo.ADDED_FILE_TO_SOURCE_SET.formatted(barClassFile)));
+        assertTrue(logMessages.contains(INFO + EnhanceMojo.ADDED_FILE_TO_SOURCE_SET.formatted(fooClassFile)));
+        assertFalse(logMessages.contains(INFO + EnhanceMojo.ADDED_FILE_TO_SOURCE_SET.formatted(bazClassFile)));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.SKIPPING_NON_CLASS_FILE.formatted(fooTxtFile)));
+        assertTrue(logMessages.contains(DEBUG + EnhanceMojo.FILESET_PROCESSED_SUCCESFULLY));
     }
 
     @Test
